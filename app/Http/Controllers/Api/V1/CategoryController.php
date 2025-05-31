@@ -1,18 +1,17 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers\Api\V1;
 
-use {{ rootNamespace }}Http\Controllers\Controller;
+use App\Helpers\ResponseHelper;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
+use App\Services\CategoryService;
 use Illuminate\Http\Request;
 
-class {{ class }} extends Controller
+class CategoryController extends Controller
 {
 
-
-    public function __construct()
-    {
-        
-    }
+    public function __construct(private CategoryService $categoryService) {}
 
 
     /**
@@ -20,7 +19,7 @@ class {{ class }} extends Controller
      */
     public function index(Request $request)
     {
-        //
+        ResponseHelper::sendSuccess('Data Fetch Successfully', CategoryResource::collection($this->categoryService->getAllCategorys($request->all()))->response()->getData());
     }
 
     /**

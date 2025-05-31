@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Helpers\ResponseHelper;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +20,6 @@ class IsAdmin
             return $next($request);
         }
 
-        return response()->json(['message' => 'Forbidden. Admins only.'], 403);
+        return ResponseHelper::sendError('Unauthorized', code: Response::HTTP_UNAUTHORIZED);
     }
 }

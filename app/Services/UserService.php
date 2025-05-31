@@ -5,17 +5,13 @@ namespace App\Services;
 use App\Repositories\UserRepository;
 
 class UserService
-{
-    protected $userRepo;
+{ 
 
-    public function __construct(UserRepository $userRepo)
-    {
-        $this->userRepo = $userRepo;
-    }
+    public function __construct(private UserRepository $userRepo) {}
 
-    public function getAllUsers(array $condition = [])
+    public function getAllUsers(array $conditions = [], array $fields = [])
     {
-        return $this->userRepo->all($condition);
+        return $this->userRepo->all($conditions, $fields);
     }
 
     public function getUser($id)

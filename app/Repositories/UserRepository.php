@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserRepository
 {
-    public function all(array $condition = [], array $fields = [])
+    public function all(array $conditions = [], array $fields = [])
     {
         $fields = !empty($fields) ? $fields : "*";
 

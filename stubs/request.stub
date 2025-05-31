@@ -28,7 +28,10 @@ class {{ class }} extends FormRequest
             //
         ];
     }
-
+    public function messages()
+    {
+        return [];
+    }
     public function validated($key = null, $default = null)
     {
         $validated = parent::validated($key, $default);

@@ -34,17 +34,14 @@ namespace App\Services;
 use App\Repositories\\{$name}Repository;
 
 class {$name}Service
-{
-    protected \${$variableName}Repo;
-
-    public function __construct({$name}Repository \${$variableName}Repo)
-    {
-        \$this->{$variableName}Repo = \${$variableName}Repo;
+{ 
+    public function __construct(private {$name}Repository \${$variableName}Repo)
+    { 
     }
 
-    public function getAll{$name}s()
+    public function getAll{$name}s(array \$conditions = [], array \$fields = [])
     {
-        return \$this->{$variableName}Repo->all();
+        return \$this->{$variableName}Repo->all(\$conditions);
     }
 
     public function get{$name}(\$id)
@@ -82,7 +79,7 @@ use App\Models\\{$name};
 
 class {$name}Repository
 {
-    public function all()
+    public function all(array \$condition = [], array \$fields = [])
     {
         return {$name}::all();
     }
