@@ -51,7 +51,7 @@ class {$name}Service
 
     public function create{$name}(array \$data)
     {
-        // Example: Add business logic before create
+        
         return \$this->{$variableName}Repo->create(\$data);
     }
 

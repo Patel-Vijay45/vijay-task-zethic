@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Api\V1\Authentication\AuthController;
 use App\Http\Controllers\Api\V1\CategoryController;
+use App\Http\Controllers\Api\V1\OrderController;
+use App\Http\Controllers\Api\V1\PaymentWebhookController;
 use App\Http\Controllers\Api\V1\ProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,6 +23,11 @@ Route::get('/categories', [CategoryController::class, 'index'])->name('categorie
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/webhook/fake-payment', PaymentWebhookController::class);
+
+    Route::apiResource('orders', OrderController::class)->except(['delete', 'update']);
+    // Route::get('/orders', [OrderController::class, 'index'])->name('order-index');
+    // Route::post('/orders', [OrderController::class, 'store'])->name('order-store');
 });
 
 // Product Management
@@ -29,4 +36,7 @@ Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
     Route::apiResource('/categories', CategoryController::class)->except('index');
     Route::apiResource('/products', ProductController::class)->except('index');
+
+
+    Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin-order');
 });

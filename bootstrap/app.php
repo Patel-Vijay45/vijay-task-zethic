@@ -3,7 +3,7 @@
 use App\Helpers\ResponseHelper;
 use App\Http\Middleware\CheckPermission;
 use App\Http\Middleware\CheckRole;
-use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsAdmin; 
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -22,7 +22,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'is_admin' => IsAdmin::class,
         ]);
-    })
+    })->withProviders([
+        App\Providers\EventServiceProvider::class,
+    ])
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e) {
             ResponseHelper::sendError("Data Not Found", code: Response::HTTP_NOT_FOUND);
