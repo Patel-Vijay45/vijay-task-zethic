@@ -29,7 +29,7 @@ class CancelOldUnprocessedOrders extends Command
     {
         $cutoff = now()->subHour();
         Log::info("Order cancell.");
-        $orders = Order::where('status', 'pending')
+        $orders = Order::with('items')->where('status', 'pending')
             ->where('created_at', '<=', $cutoff)
             ->get();
 
@@ -39,6 +39,13 @@ class CancelOldUnprocessedOrders extends Command
         }
 
         foreach ($orders as $order) {
+            foreach ($order->items as $item) {
+                $product = $item->product;
+
+                if ($product) {
+                    $product->increment('stock', $item->qnt);
+                }
+            }
             $order->update(['status' => 'cancelled']);
             Log::info("Order #{$order->id} cancelled due to inactivity.");
         }

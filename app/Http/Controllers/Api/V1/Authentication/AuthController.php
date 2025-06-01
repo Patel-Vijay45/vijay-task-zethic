@@ -33,9 +33,7 @@ class AuthController extends Controller
     }
 
     public function profile(Request $request)
-    {
-        // return response()->json($request->user());
-
+    {  
         return ResponseHelper::sendSuccess('Data fetch Successfully',  UserResource::make($request->user()));
     }
 

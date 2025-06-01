@@ -39,7 +39,7 @@ class ProductRequest extends FormRequest
             ],
             'put', 'patch' => [
                 'name' => 'nullable',
-                'sku' => 'required|unique:products,sku,' . $productId . ',id,deleted_at,NULL',
+                'sku' => 'nullable|unique:products,sku,' . $productId . ',id,deleted_at,NULL',
                 'price' => 'nullable',
                 'parent_id' => 'nullable',
                 'stock' => 'nullable',

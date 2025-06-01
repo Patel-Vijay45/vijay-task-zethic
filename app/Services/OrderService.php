@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Events\OrderPlaced;
 use App\Http\Controllers\Api\V1\PaymentWebhookController;
+use App\Http\Requests\PaymentWebhookRequest;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\Request;
@@ -65,13 +66,13 @@ class OrderService
                 ]);
 
                 $grandTotal += $product->price * $qty;
+                $product->save();
             }
 
             $this->orderRepo->update($order->id, ['grand_total' => $grandTotal]);
-
             return $order;
         });
-        if (app(PaymentWebhookController::class)->__invoke(new Request(['order_id' => $order->id]))) {
+        if (app(PaymentWebhookController::class)->__invoke(new PaymentWebhookRequest(['order_id' => $order->id]))) {
             event(new OrderPlaced($order));
             return $order;
         }

@@ -1,0 +1,48 @@
+<?php
+
+namespace App\Http\Requests;
+
+use App\Helpers\ResponseHelper;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
+
+class PaymentWebhookRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'order_id' => 'required|exists:orders,id,deleted_at,NULL,status,pending',
+        ];
+    }
+    public function messages()
+    {
+        return [];
+    }
+    public function validated($key = null, $default = null)
+    {
+        $validated = parent::validated($key, $default);
+        return array_filter($validated, function ($value) {
+            return !is_null($value);
+        });
+    }
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+
+        throw new HttpResponseException(ResponseHelper::sendError('Validation Error', $errors, 422));
+    }
+}

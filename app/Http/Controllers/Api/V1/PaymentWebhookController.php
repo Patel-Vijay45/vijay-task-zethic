@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaymentWebhookRequest;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
 class PaymentWebhookController extends Controller
 {
-    public function __invoke(Request $request)
+    public function __invoke(PaymentWebhookRequest $request)
     {
         $order = Order::findOrFail($request->input('order_id'));
-
-        // Randomize or simulate payment outcome
+ 
         $status = rand(0, 1);
         if ($status) {
             $order->update(['status' => 'paid']);

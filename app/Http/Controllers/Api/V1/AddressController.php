@@ -33,15 +33,7 @@ class AddressController extends Controller
     public function store(AddressRequest $request)
     {
         ResponseHelper::sendSuccess('Data Fetch Successfully', AddressResource::make($this->addressService->createAddress($request->validated()))->response()->getData());
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+    } 
 
     /**
      * Update the specified resource in storage.

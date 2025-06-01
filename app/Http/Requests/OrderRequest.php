@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Helpers\ResponseHelper;
+use App\Models\Product;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -45,6 +46,20 @@ class OrderRequest extends FormRequest
             'products.*.id' => 'required|exists:products,id,deleted_at,NULL',
             'products.*.qnt' => 'required|numeric',
         ];
+    }
+    public function withValidator(Validator $validator)
+    {
+        $validator->after(function ($validator) {
+            foreach ($this->input('products', []) as $index => $item) {
+                $product = Product::find($item['id'] ?? 0);
+
+                if (!$product) continue;
+
+                if ($product->stock < $item['qnt']) {
+                    $validator->errors()->add("products.$index.qnt", "Not enough stock for {$product->name}.");
+                }
+            }
+        });
     }
     public function messages()
     {

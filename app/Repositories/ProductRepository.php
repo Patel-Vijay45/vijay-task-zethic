@@ -19,6 +19,9 @@ class ProductRepository
         if (isset($with) && !empty($with)) {
             $products->with($with);
         }
+        if (isset($conditions['product_id']) && !empty($conditions['product_id'])) {
+            $products->whereIn('id', $conditions['product_id']);
+        }
         if (isset($conditions['name'])) {
             $products->where('name', 'like', '%'  . trim($conditions['name']) . '%');
         }
