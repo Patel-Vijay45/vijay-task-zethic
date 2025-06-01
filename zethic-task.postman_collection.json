@@ -1,0 +1,1242 @@
+{
+	"info": {
+		"_postman_id": "beaab2f4-196b-4c46-9a66-01073c589252",
+		"name": "zethic-task",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39495880",
+		"_collection_link": "https://indus4-6903.postman.co/workspace/Indus-Workspace~afa29aa1-839d-403c-88c0-eaf60192be0d/collection/39495880-beaab2f4-196b-4c46-9a66-01073c589252?action=share&source=collection_link&creator=39495880"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "user register",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "vijay",
+											"type": "text"
+										},
+										{
+											"key": "email",
+											"value": "patelvijay8160@gmail.com",
+											"description": "[",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										},
+										{
+											"key": "password_confirmation",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}register",
+									"host": [
+										"{{LOCAL_URL}}register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();\r",
+											"var bodyToken = responseJson.result.token;\r",
+											"pm.collectionVariables.set(\"USER_AUTH\", bodyToken)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "patelvijay8160@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}login",
+									"host": [
+										"{{LOCAL_URL}}login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}profile",
+									"host": [
+										"{{LOCAL_URL}}profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}logout",
+									"host": [
+										"{{LOCAL_URL}}logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Product",
+					"item": [
+						{
+							"name": "Category List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}categories",
+									"host": [
+										"{{LOCAL_URL}}categories"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "test1",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "sku-008",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "200",
+											"type": "text"
+										},
+										{
+											"key": "categroy_id",
+											"value": "1",
+											"type": "text"
+										},
+										{
+											"key": "images[]",
+											"type": "file",
+											"src": [
+												"/C:/Users/patel/Downloads/4) Appraisal_mail.png",
+												"/C:/Users/patel/Downloads/Screenshot 2025-03-18 at 11.52.53AM.png"
+											]
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}products?category_id[]=2",
+									"host": [
+										"{{LOCAL_URL}}products"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "sku",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "price_min",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "price_max",
+											"value": null,
+											"disabled": true
+										},
+										{
+											"key": "stock_min",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "stock_max",
+											"value": "10",
+											"disabled": true
+										},
+										{
+											"key": "category_id[]",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Orders",
+					"item": [
+						{
+							"name": "Order List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}orders",
+									"host": [
+										"{{LOCAL_URL}}orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Order by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}orders/16",
+									"host": [
+										"{{LOCAL_URL}}orders"
+									],
+									"path": [
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"address_id\": 9,\r\n  \"shipping_method\": \"test\", \r\n  \"products\": [\r\n    {\r\n      \"id\": 2,\r\n      \"qnt\": 1\r\n    },\r\n    {\r\n      \"id\": 5,\r\n      \"qnt\": 2\r\n    }\r\n  ],\r\n  \"is_gift\": false\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}orders",
+									"host": [
+										"{{LOCAL_URL}}orders"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "fake-payment gateway",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"order_id\": 9 \r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}webhook/fake-payment",
+									"host": [
+										"{{LOCAL_URL}}webhook"
+									],
+									"path": [
+										"fake-payment"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Address",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}addresses",
+									"host": [
+										"{{LOCAL_URL}}addresses"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "sort_key",
+											"value": "position",
+											"disabled": true
+										},
+										{
+											"key": "sort_dir",
+											"value": "asc",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"first_name\": \"Vijay\",\r\n    \"last_name\": \"Patel\",\r\n    \"phone_no\": \"9876543210\",\r\n    \"alternative_phone_no\": \"9123456789\",\r\n    \"address\": \"12, Sunrise Avenue, Near City Mall\",\r\n    \"city\": \"Ahmedabad\",\r\n    \"state\": \"Gujarat\",\r\n    \"country\": \"India\",\r\n    \"pincode\": \"380001\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}addresses",
+									"host": [
+										"{{LOCAL_URL}}addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "qui3",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/4) Appraisal_mail.png"
+										},
+										{
+											"key": "category_banner",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/4) Appraisal_mail.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}addresses/9",
+									"host": [
+										"{{LOCAL_URL}}addresses"
+									],
+									"path": [
+										"9"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{USER_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}addresses/9",
+									"host": [
+										"{{LOCAL_URL}}addresses"
+									],
+									"path": [
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "admin  profile",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}profile",
+									"host": [
+										"{{LOCAL_URL}}profile"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "admin login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseJson = pm.response.json();\r",
+											"var bodyToken = responseJson.result.token;\r",
+											"pm.collectionVariables.set(\"ADMIN_AUTH\", bodyToken)"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "admin@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "admin@123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}login",
+									"host": [
+										"{{LOCAL_URL}}login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user list",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}users",
+									"host": [
+										"{{LOCAL_URL}}users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "admin logout",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}logout",
+									"host": [
+										"{{LOCAL_URL}}logout"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}products",
+									"host": [
+										"{{LOCAL_URL}}products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "test1",
+											"type": "text"
+										},
+										{
+											"key": "sku",
+											"value": "sku-009",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "200",
+											"type": "text"
+										},
+										{
+											"key": "category_id",
+											"value": "8",
+											"type": "text"
+										},
+										{
+											"key": "images[]",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/Screenshot 2025-03-18 at 11.52.53AM.png"
+										},
+										{
+											"key": "stock",
+											"value": "20",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}products",
+									"host": [
+										"{{LOCAL_URL}}products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "images[]",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/4) Appraisal_mail.png",
+											"disabled": true
+										},
+										{
+											"key": "stock",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}products/5?_method=put",
+									"host": [
+										"{{LOCAL_URL}}products"
+									],
+									"path": [
+										"5"
+									],
+									"query": [
+										{
+											"key": "_method",
+											"value": "put"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}products/2",
+									"host": [
+										"{{LOCAL_URL}}products"
+									],
+									"path": [
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Category",
+					"item": [
+						{
+							"name": "List",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}categories?sort_key=position&sort_dir=asc",
+									"host": [
+										"{{LOCAL_URL}}categories"
+									],
+									"query": [
+										{
+											"key": "per_page",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "sort_key",
+											"value": "position"
+										},
+										{
+											"key": "sort_dir",
+											"value": "asc"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "qui3",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/4) Appraisal_mail.png"
+										},
+										{
+											"key": "category_banner",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/4) Appraisal_mail.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}categories",
+									"host": [
+										"{{LOCAL_URL}}categories"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "qui3",
+											"type": "text"
+										},
+										{
+											"key": "image",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/4) Appraisal_mail.png"
+										},
+										{
+											"key": "category_banner",
+											"type": "file",
+											"src": "/C:/Users/patel/Downloads/Screenshot 2025-03-18 at 11.52.53AM.png"
+										},
+										{
+											"key": "status",
+											"value": "1",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}categories/8?_method=put",
+									"host": [
+										"{{LOCAL_URL}}categories"
+									],
+									"path": [
+										"8"
+									],
+									"query": [
+										{
+											"key": "_method",
+											"value": "put"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{LOCAL_URL}}categories/8",
+									"host": [
+										"{{LOCAL_URL}}categories"
+									],
+									"path": [
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Order",
+					"item": [
+						{
+							"name": "list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{ADMIN_AUTH}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "{{LOCAL_URL}}admin/orders",
+									"host": [
+										"{{LOCAL_URL}}admin"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "LOCAL_URL",
+			"value": "http://127.0.0.1:8000/api/",
+			"type": "default"
+		},
+		{
+			"key": "LOCAL_URL",
+			"value": ""
+		},
+		{
+			"key": "USER_AUTH",
+			"value": ""
+		},
+		{
+			"key": "ADMIN_AUTH",
+			"value": ""
+		}
+	]
+}
