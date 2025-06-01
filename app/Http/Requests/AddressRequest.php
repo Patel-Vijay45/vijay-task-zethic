@@ -26,16 +26,16 @@ class AddressRequest extends FormRequest
     {
         return match (strtolower($this->method())) {
             'post' => [
-                'first_name' => 'required',
-                'last_name' => 'required',
-                'phone_no' => 'required',
-                'alternative_phone_no' => 'nullable',
-                'address' => 'required',
-                'city' => 'required',
-                'state' => 'required',
-                'country' => 'required',
-                'pincode' => 'required',
-                'is_default' => 'nullable',
+                'first_name' => 'required|string|max:50',
+                'last_name' => 'required|string|max:50',
+                'phone_no' => 'required|string|regex:/^[0-9]{10,15}$/',
+                'alternative_phone_no' => 'nullable|string|regex:/^[0-9]{10,15}$/',
+                'address' => 'required|string|max:255',
+                'city' => 'required|string|max:50',
+                'state' => 'required|string|max:50',
+                'country' => 'required|string|max:50',
+                'pincode' => 'required|string|max:20',
+                'is_default' => 'nullable|boolean',
             ],
             'put', 'patch' => [
                 'first_name' => 'nullable',
