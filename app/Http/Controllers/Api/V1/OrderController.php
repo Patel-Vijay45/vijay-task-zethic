@@ -33,7 +33,10 @@ class OrderController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        ResponseHelper::sendSuccess('Order Successfully', OrderResource::make($this->orderService->createOrder($request->validated())));
+        if ($order = $this->orderService->createOrder($request->validated())) {
+            return  ResponseHelper::sendSuccess('Order Successfully', OrderResource::make($order));
+        }
+        return    ResponseHelper::sendSuccess('Payment failed. Please try again or use a different payment method.', code:Response::HTTP_PAYMENT_REQUIRED);
     }
 
     /**
@@ -41,8 +44,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $user = Auth::user();
-        // $this->authorize('view', $order);
+        $user = Auth::user(); 
         if ($user->cannot('view', $order)) {
             return ResponseHelper::sendSuccess('You are not authorized to view this order', code: Response::HTTP_FORBIDDEN);
         }

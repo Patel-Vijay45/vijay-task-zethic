@@ -28,22 +28,24 @@ class SendOrderEmailJob implements ShouldQueue
 
     public function handle()
     {
-        $order = \App\Models\Order::with(['user', 'items'])->findOrFail($this->orderId);
+        $order = \App\Models\Order::with(['user', 'items', 'address'])->findOrFail($this->orderId);
 
-        // Log::info('SendOrderEmailJob started for order: ' . $order->id);
+        Log::info('SendOrderEmailJob started for order: ' . $order->id);
 
 
         try {
             // Generate invoice
             $pdf = Pdf::loadView('invoices.order', compact('order'));
             $fileName = 'invoices/order_' . $order->id . '.pdf';
-
+            $order->invoice = Storage::url('public/' . $fileName);
+            $order->save();
             Storage::put('public/' . $fileName, $pdf->output());
 
             // Send email notification
             // Notification::route('mail', $order->user->email)
             //     ->notify(new OrderPlacedNotification($order, $fileName));
             $order->user->notify(new OrderPlacedNotification($order, $fileName));
+            Log::info('SendOrderEmailJob complted for order: ' . $order->id);
         } catch (\Exception $e) {
             // Log::error('PDF generation failed: ' . $e->getMessage());
             throw $e;

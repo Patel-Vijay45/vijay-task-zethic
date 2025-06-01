@@ -7,7 +7,7 @@ use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ProductRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,39 +24,29 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-        $productId = $this->route('product')?->id ?? null;
+        $categoryId = $this->route('category')?->id ?? null;
         return match (strtolower($this->method())) {
             'post' => [
-                'name' => 'required',
-                'sku' => 'required|unique:products,sku,NULL,id,deleted_at,NULL',
-                'price' => 'required|numeric|decimal:0,2',
-                'parent_id' => 'nullable',
-                'stock' => 'nullable',
+                'name' => 'required|unique:categories,name,NULL,id,deleted_at,NULL',
+                'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'category_banner' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'nullable|boolean',
                 'additional' => 'nullable',
-                'category_id' => 'required|exists:categories,id,deleted_at,NULL,status,1',
-                'images' => 'required|array',
-                'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'nullable|boolean',
             ],
             'put', 'patch' => [
-                'name' => 'nullable',
-                'sku' => 'required|unique:products,sku,' . $productId . ',id,deleted_at,NULL',
-                'price' => 'nullable',
-                'parent_id' => 'nullable',
-                'stock' => 'nullable',
+                'name' => 'nullable|unique:categories,name,' . $categoryId . ',id,deleted_at,NULL',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'category_banner' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'nullable|boolean',
                 'additional' => 'nullable',
-                'category_id' => 'nullable|exists:categories,id,deleted_at,NULL,status,1',
-                'images' => 'nullable|array',
-                'images.*' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+                'status' => 'nullable|boolean',
             ],
         };
     }
     public function messages()
     {
-        return [
-            'images.*.required' => 'The images field is required.',
-            'images.*.image' => 'The images field must be a file of type: jpeg, png, jpg..',
-            'images.*.mimes' => 'The images field must be a file of type: jpeg, png, jpg..',
-        ];
+        return [];
     }
     public function validated($key = null, $default = null)
     {

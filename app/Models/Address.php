@@ -13,8 +13,7 @@ class Address extends Model
     protected $fillable = [
         'user_id',
         'first_name',
-        'last_name',
-        'email',
+        'last_name', 
         'phone_no',
         'alternative_phone_no',
         'address',

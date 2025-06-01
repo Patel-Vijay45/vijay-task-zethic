@@ -6,6 +6,7 @@ use App\Events\OrderPlaced;
 use App\Jobs\SendOrderEmailJob;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
 class SendOrderConfirmation
 {
@@ -19,6 +20,8 @@ class SendOrderConfirmation
      */
     public function handle(OrderPlaced $event): void
     {
+        Log::info('SendOrderConfirmation started for order: ' . $event->order->id);
         SendOrderEmailJob::dispatch($event->order->id);
+        Log::info('SendOrderConfirmation complted for order: ' . $event->order->id);
     }
 }

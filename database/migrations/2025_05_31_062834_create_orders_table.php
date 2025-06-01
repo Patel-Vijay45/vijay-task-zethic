@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('total_item_count')->nullable();
             $table->integer('total_qty_ordered')->nullable();
             $table->decimal('grand_total', 12, 4)->default(0)->nullable();
+            $table->string('invoice')->nullable();
             $table->softDeletes();
             $table->timestamps();
 

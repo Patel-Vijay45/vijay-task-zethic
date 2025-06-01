@@ -17,8 +17,14 @@ class CategoryRepository
             $categories->where('name', 'like', '%' .  trim($conditions['name']) . '%');
         }
 
+        if (isset($conditions['status'])) {
+            $categories->where('status', $conditions['status']);
+        }
+        if (isset($conditions['position'])) {
+            $categories->where('position', $conditions['position']);
+        }
         return $categories
-            ->orderBy('id', 'desc')
+            ->orderBy(isset($conditions['sort_key']) ? $conditions['sort_key'] : 'id', isset($conditions['sort_dir']) ? $conditions['sort_dir'] : 'desc')
             ->paginate($conditions['per_page'] ?? config('constants.per_page'));
     }
 
@@ -29,7 +35,8 @@ class CategoryRepository
 
     public function create(array $data)
     {
-        return Category::create($data);
+        $category = Category::create($data);
+        return $category;
     }
 
     public function update($id, array $data)

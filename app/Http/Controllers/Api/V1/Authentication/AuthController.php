@@ -43,24 +43,5 @@ class AuthController extends Controller
     {
         $request->user()->tokens()->delete();
         return ResponseHelper::sendSuccess('Logout Successfully');
-    }
-
-    // Optional separate login route for admins
-    public function adminLogin(Request $request)
-    {
-        $data = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        $admin = User::where('email', $data['email'])->where('role', 'admin')->first();
-
-        if (!$admin || !Hash::check($data['password'], $admin->password)) {
-            return response()->json(['message' => 'Invalid admin credentials'], 401);
-        }
-
-        $token = $admin->createToken('api_token')->plainTextToken;
-
-        return response()->json(['user' => $admin, 'token' => $token]);
-    }
+    } 
 }

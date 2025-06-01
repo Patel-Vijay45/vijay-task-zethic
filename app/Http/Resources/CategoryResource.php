@@ -17,9 +17,10 @@ class CategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'name' => $this->name,
             'position' => $this->position,
-            'image' => $this->image,
-            'category_banner' => $this->category_banner,
+            'image' => url($this->image),
+            'category_banner' => url($this->category_banner),
             'status' => $this->status,
             'additional' => $this->additional,
             'products' => ProductResource::collection($this->whenLoaded('products')),

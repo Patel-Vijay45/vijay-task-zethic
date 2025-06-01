@@ -3,9 +3,10 @@
 namespace App\Services;
 
 use App\Repositories\UserRepository;
+use Illuminate\Support\Facades\Hash;
 
 class UserService
-{ 
+{
 
     public function __construct(private UserRepository $userRepo) {}
 
@@ -21,6 +22,7 @@ class UserService
 
     public function createUser(array $data)
     {
+        $data['password'] = Hash::make($data['password']);
         return $this->userRepo->create($data);
     }
 

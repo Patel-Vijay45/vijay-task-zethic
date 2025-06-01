@@ -25,6 +25,7 @@ class OrderResource extends JsonResource
             'total_qty_ordered' => $this->total_qty_ordered,
             'grand_total' => $this->grand_total,
             'user_id' => $this->user_id,
+            'invoice' => $this->invoice ? url($this->invoice) : null,
         ];
     }
 }

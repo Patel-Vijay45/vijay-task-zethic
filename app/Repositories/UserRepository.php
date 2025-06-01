@@ -2,8 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Models\User;
-use Illuminate\Support\Facades\Hash;
+use App\Models\User; 
 
 class UserRepository
 {
@@ -41,7 +40,6 @@ class UserRepository
 
     public function create(array $data)
     {
-        $data['password'] = Hash::make($data['password']);
         return User::create($data);
     }
 

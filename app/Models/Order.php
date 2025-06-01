@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class Order extends Model
 {
-    use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'address_id',
         'status',
@@ -20,6 +20,7 @@ class Order extends Model
         'total_qty_ordered',
         'grand_total',
         'user_id',
+        'invoice',
     ];
 
 

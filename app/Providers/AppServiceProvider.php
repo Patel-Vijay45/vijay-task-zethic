@@ -3,9 +3,11 @@
 namespace App\Providers;
 
 use App\Events\OrderPlaced;
+use App\Models\Address;
 use App\Models\Order;
 use App\Models\Product;
 use App\Observers\ProductObserver;
+use App\Policies\AddressPolicy;
 use App\Policies\OrderPolicy;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Gate;
@@ -30,6 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
         Product::observe(ProductObserver::class);
         Gate::policy(Order::class, OrderPolicy::class);
+        Gate::policy(Address::class, AddressPolicy::class);
 
          
     }

@@ -23,9 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'is_admin' => IsAdmin::class,
         ]);
-    })->withProviders([
-        App\Providers\EventServiceProvider::class,
-    ])
+    })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->render(function (NotFoundHttpException $e) {
             ResponseHelper::sendError("Data Not Found", code: Response::HTTP_NOT_FOUND);

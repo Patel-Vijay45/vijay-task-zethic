@@ -8,9 +8,9 @@ use App\Listeners\SendOrderConfirmation;
 
 class EventServiceProvider extends ServiceProvider
 {
-    protected $listen = [
-        OrderPlaced::class => [
-            SendOrderConfirmation::class,
-        ],
-    ];
+    // protected $listen = [
+    //     OrderPlaced::class => [
+    //         SendOrderConfirmation::class,
+    //     ],
+    // ];
 }
