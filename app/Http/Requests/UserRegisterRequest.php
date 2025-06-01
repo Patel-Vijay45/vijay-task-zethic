@@ -23,11 +23,12 @@ class UserRegisterRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
-    { 
+    {
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,NULL,id,deleted_at,NULL',
-            'password' => 'required|confirmed',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required|string|min:6',
         ];
     }
 
@@ -35,7 +36,7 @@ class UserRegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.unique'=>'Account Already Exists'
+            'email.unique' => 'Account Already Exists'
         ];
     }
 

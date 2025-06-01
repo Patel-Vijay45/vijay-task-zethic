@@ -15,7 +15,7 @@ class UserController extends Controller
     public function __construct(private UserService $userService) {}
 
     /**
-     * Display a listing of the resource.
+     * List Users for Admin..
      */
     public function index(Request $request)
     {

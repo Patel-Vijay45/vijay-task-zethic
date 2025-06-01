@@ -18,39 +18,39 @@ class ProductController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Get Products
+     *
+     * List Product
+     *
+     * @unauthenticated 
      */
     public function index(Request $request)
     {
         ResponseHelper::sendSuccess('Data Fetch Successfully', ProductResource::collection($this->productService->getAllProducts($request->all(), with: ['images']))->response()->getData());
     }
 
-    /**
-     * Store a newly created resource in storage.
+    /** 
+     * Store Product for Admin.
+     * 
      */
     public function store(ProductRequest $request)
     {
         ResponseHelper::sendSuccess('Data Fetch Successfully', ProductResource::make($this->productService->createProduct($request->validated()))->response()->getData());
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
+    /** 
+     * Update Product for Admin.
+     * 
      */
     public function update(ProductRequest $request, Product $product)
     {
         ResponseHelper::sendSuccess('Data Fetch Successfully', ProductResource::make($this->productService->updateProduct($product->id, $request->validated()))->response()->getData());
     }
 
-    /**
-     * Remove the specified resource from storage.
+    /** 
+     * Delete Product for Admin.
+     * 
      */
     public function destroy(Product $product)
     {

@@ -19,24 +19,27 @@ class AddressController extends Controller
     public function __construct(private AddressService $addressService) {}
 
 
-    /**
-     * Display a listing of the resource.
+    /** 
+     * List Addreses.
+     * 
      */
     public function index(Request $request)
     {
         ResponseHelper::sendSuccess('Data Fetch Successfully', AddressResource::collection($this->addressService->getAllAddresss($request->all()))->response()->getData());
     }
 
-    /**
-     * Store a newly created resource in storage.
+    /** 
+     * Store Address.
+     * 
      */
     public function store(AddressRequest $request)
     {
         ResponseHelper::sendSuccess('Data Fetch Successfully', AddressResource::make($this->addressService->createAddress($request->validated()))->response()->getData());
-    } 
+    }
 
-    /**
-     * Update the specified resource in storage.
+    /**  
+     * Update Address.
+     * 
      */
     public function update(AddressRequest $request, Address $address)
     {
@@ -47,8 +50,9 @@ class AddressController extends Controller
         ResponseHelper::sendSuccess('Data Fetch Successfully', AddressResource::make($this->addressService->updateAddress($address->id, $request->validated()))->response()->getData());
     }
 
-    /**
-     * Remove the specified resource from storage.
+    /** 
+     * Delete Address.
+     * 
      */
     public function destroy(Address $address)
     {

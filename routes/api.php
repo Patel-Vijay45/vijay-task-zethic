@@ -27,8 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'is_admin'])->group(function () {
-    Route::apiResource('/categories', CategoryController::class)->except('show');
-    Route::apiResource('/products', ProductController::class)->except('show');
+    Route::apiResource('/categories', CategoryController::class)->except('index','show');
+    Route::apiResource('/products', ProductController::class)->except('index', 'show');
     Route::apiResource('/users', UserController::class)->only('index');
     Route::get('/admin/orders', [OrderController::class, 'index'])->name('admin-order');
 });

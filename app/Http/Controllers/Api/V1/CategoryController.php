@@ -17,7 +17,11 @@ class CategoryController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Get Categories
+     *
+     * List Categories..
+     *
+     * @unauthenticated 
      */
     public function index(Request $request)
     {
@@ -25,7 +29,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * 
+     *
+     * Store Category for Admin.
+     * 
      */
     public function store(CategoryRequest $request)
     {
@@ -33,15 +40,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
+     *  
+     *
+     * Update Category for Admin.
+     * 
      */
     public function update(CategoryRequest $request, Category $category)
     {
@@ -49,7 +51,10 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * 
+     *
+     * Delete Category for Admin.
+     * 
      */
     public function destroy(Category $category)
     {

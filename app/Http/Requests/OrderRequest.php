@@ -39,7 +39,7 @@ class OrderRequest extends FormRequest
                     }
                 }
             ],
-            'shipping_method' => 'required',
+            'shipping_method' => 'nullable',
             'shipping_description' => 'nullable',
             'is_gift' => 'nullable',
             'products' => 'required|array',
